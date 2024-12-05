@@ -881,9 +881,10 @@ Caused by: Unable to create a date cluster tree
 Caused by: Unable to recover date cluster tree
 Caused by: Unable to retrieve date interval elements
 Caused by: CouchDB Error (404) not_found/missing
-pradeeban@llovizna:~/Documents/nunaliit_2.2.9-SNAPSHOT_2024-12-03_c313040/bin/nughejagh$
 
-Nunaliit on Ubuntu 24.04
+
+# Fixing the above error with an update
+
 
 $ ../nunaliit update
 pradeeban@llovizna:~/Documents/nunaliit_2.2.9-SNAPSHOT_2024-12-03_c313040/bin/nughejagh
