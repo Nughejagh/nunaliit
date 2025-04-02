@@ -112,9 +112,15 @@ if( typeof $.widget === 'function' ){
 			var text = this.element.find('option').first().text();
 			this.button = $('<select>')
 				.appendTo(this.wrapper)
-				.mousedown(function(e){
+				.on('mousedown', function(e) {
 					_this._toggleMenu();
 					return false;
+				})
+				.on('keydown', function(e) {
+					if (e.key === 'Enter' || e.keyCode === 13) {
+						_this._toggleMenu();
+						return false;
+					}
 				});
 			if( classes ){
 				this.button.attr('class',classes);
@@ -130,9 +136,15 @@ if( typeof $.widget === 'function' ){
 				.css('top','0px')
 				.css('display','block')
 				.css('z-index',1000)
+				.attr('tabindex',0)
 				.hide()
 				.appendTo(this.wrapper);
-
+			
+			this.menu.on('focusout', function(e) {
+				if (!_this.menu.has(e.relatedTarget).length) {
+					_this.menu.hide();
+				}
+			});
 			this.element.hide();
 		}
 		
@@ -182,8 +194,10 @@ if( typeof $.widget === 'function' ){
 				menu.empty();
 				menu.hide();
 			} else {
+				menu.empty();
 				this._createMenu(menu);
 				menu.show();
+				menu.find('a').attr('tabindex', 0);
 				menu.position({
 						my:'left top'
 						,at: 'left bottom'
@@ -206,5 +220,33 @@ if( typeof $.widget === 'function' ){
 		}
 	});
 };
+
+/**
+ * Enhances the jQuery UI Dialog to maintain focus on the element that opened it.
+ * This prevents focus from moving to the document root after the dialog closes.
+ */
+const enhanceDialog = () => {
+    const originalClose = $.ui.dialog.prototype.close;
+    const originalOpen = $.ui.dialog.prototype.open;
+
+    // Extend the jQuery UI Dialog widget
+    $.extend($.ui.dialog.prototype, {
+        close: function (event) {
+			originalClose.call(this, event);
+
+			// Focus the element that triggered the dialog, if available
+			if (this.triggerElement) {
+				this.triggerElement.focus();
+			}
+        },
+
+        open: function (event) {
+            // Capture the element that triggered the dialog
+            this.triggerElement = $(document.activeElement);
+            originalOpen.call(this, event);
+        },
+    });
+};
+enhanceDialog()
 
 })(jQuery,nunaliit2);

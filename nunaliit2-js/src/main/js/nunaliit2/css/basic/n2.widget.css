@@ -159,7 +159,8 @@
 	left: 47px;
 	top: 100px;
 }
-.olControlLayerSwitcher .maximizeDiv, .olControlLayerSwitcher .minimizeDiv {
+.olControlLayerSwitcher .maximizeDiv, .olControlLayerSwitcher .minimizeDiv,
+.olControlLayerSwitcher .layerTogglerDiv {
 	width: 28px;
 	height: 28px;
 	background-image: url('openlayers/settings_icon.png');
@@ -167,13 +168,31 @@
 	top: 5px;
 	left: -29px;
 }
-.olControlLayerSwitcher .maximizeDiv:hover, .olControlLayerSwitcher .minimizeDiv:hover {
+.olControlLayerSwitcher .maximizeDiv:hover, .olControlLayerSwitcher .minimizeDiv:hover,
+.olControlLayerSwitcher .layerTogglerDiv:hover {
 	opacity: 1;
 }
 #OpenLayers_Control_MaximizeDiv img,
 #OpenLayers_Control_MinimizeDiv_innerImage {
 	display: none;
 }
+
+@media screen and (orientation:portrait) {
+	.nunaliit_mobile .olControlLayerSwitcher .layersDiv {
+		max-height: 20vh;
+		max-width: 70vw;
+		overflow: auto;
+	}
+}
+
+@media screen and (max-width: 960px) and (orientation:landscape) {
+	.nunaliit_mobile .olControlLayerSwitcher .layersDiv {
+		max-height: 20vh;
+		max-width: 15vw;
+		overflow: auto;
+	}
+}
+
 .olControlLayerSwitcher .layersDiv {
 	background: url('openlayers/popup_bg.png') no-repeat top left;
 	padding: 11px 20px;
